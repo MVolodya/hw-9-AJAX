@@ -1,6 +1,6 @@
 const key = "91a361375a95b077366d8085860f86b0";
 const baseUrlDarksky = 'https://api.darksky.net/forecast/';
-const baseUrlMaps = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=';
+const baseUrlMaps = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 
 let defLang = "uk"
 
@@ -23,12 +23,12 @@ let renderDOM = (summary, temperature, windSpeed, humidity, icon, cityName) => {
     skycons.add("icon1", Skycons[icon]);
     skycons.play();
 
-    let $cardTitle   = document.querySelector('.card-title');
-    let $cardSubtitle  = document.querySelector('.card-subtitle');
-    let $temperature = document.querySelector('#temperature');
-    let $summary     = document.querySelector('#summary');
-    let $windSpeed   = document.querySelector('#windSpeed');
-    let $humidity    = document.querySelector('#humidity');
+    let $cardTitle    = document.querySelector('.card-title');
+    let $cardSubtitle = document.querySelector('.card-subtitle');
+    let $temperature  = document.querySelector('#temperature');
+    let $summary      = document.querySelector('#summary');
+    let $windSpeed    = document.querySelector('#windSpeed');
+    let $humidity     = document.querySelector('#humidity');
 
     cityName    = document.createTextNode(cityName);
     currentData = document.createTextNode(currentData);
