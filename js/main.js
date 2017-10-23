@@ -37,58 +37,37 @@ let button = () => {
 
 let renderDOM = (summary, temperature, windSpeed, humidity, icon, cityName) => {
 
+    let $renderDOM = document.querySelector('.renderDOM');
 
-    let $renderDOM    = document.querySelector('.renderDOM');
     let skycons = new Skycons({"color": "balck"});
     icon = icon.toUpperCase().replace(/-/g, "_");;
 
-/*
-    /*let $cardTitle    = document.querySelector('.card-title');
-    let $cardSubtitle = document.querySelector('.card-subtitle');
-    let $temperature  = document.querySelector('#temperature');
-    let $summary      = document.querySelector('#summary');
-    let $windSpeed    = document.querySelector('#windSpeed');
-    let $humidity     = document.querySelector('#humidity');
-
-    let setCityName    = document.createTextNode(cityName);
-    let setCurrentData = document.createTextNode((moment.unix(currentData).format("LL")));
-    let setTemperature = document.createTextNode(parseInt(temperature) + '\u2103');
-    let setSummary     = document.createTextNode(summary);
-    let setWindSpeed   = document.createTextNode(`Вітер: ${windSpeed}м/c`);
-    let setHumidity    = document.createTextNode(`Вологість: ${humidity*100}%`);
-
-    $cardTitle.appendChild(setCityName);
-    $cardSubtitle.appendChild(setCurrentData);
-    $temperature.appendChild(setTemperature);
-    $summary.appendChild(setSummary);
-    $windSpeed.appendChild(setWindSpeed);
-    $humidity.appendChild(setHumidity);*/
-
-
-    let text =
-    `
-        <h4 class="card-title">${cityName}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">${moment.unix(currentData).format("LL")}</h6>
-        <div class="card-text">
-            <div class="details">
-                <h2 id="temperature">${parseInt(temperature) + '\u2103'}</h2>
-                <div class="main-info">
-                    <canvas id="icon1" width="75" height="75"></canvas>
-                    <div id="summary">${summary}</div>
+    let textData =
+    `<div class="card" style="width: 20rem;">
+        <div class="card-body box">
+            <h4 class="card-title">${cityName}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">${moment.unix(currentData).format("LL")}</h6>
+            <div class="card-text">
+                <div class="details">
+                    <h2 id="temperature">${parseInt(temperature) + '\u2103'}</h2>
+                    <div class="main-info">
+                        <canvas id="icon1" width="75" height="75"></canvas>
+                        <div id="summary">${summary}</div>
+                    </div>
+                </div>
+                <div class="other-info">
+                    <div id="windSpeed">Вітер: ${windSpeed}м/c</div>
+                    <div id="humidity">Вологість: ${humidity*100}%</div>
                 </div>
             </div>
-            <div class="other-info">
-                <div id="windSpeed">Вітер: ${windSpeed}м/c</div>
-                <div id="humidity">Вологість: ${humidity*100}%</div>
+            <div class="buttons">
+                <button id="beforeDay" type="button" class="btn btn-outline-secondary">Назад</button>
+                <button id="nextDay" type="button" class="btn btn-outline-primary">Вперед</button>
             </div>
         </div>
-        <div class="buttons">
-            <div id="beforeDay" class="button">Назад</div>
-            <div id="nextDay" class="button">Вперед</div>
-        </div>
-    `;
+    </div>`;
 
-    $renderDOM.innerHTML = text;
+    $renderDOM.innerHTML = textData;
 
     skycons.add("icon1", Skycons[icon]);
     skycons.play();
@@ -127,8 +106,8 @@ let loadCity = (latitude, longitude, currentData) => {
         .then(response => response.json())
         .then(city => {
             const cityName = city.results[1].address_components[2].short_name;
+
             loadData(latitude, longitude, currentData, cityName)
-            //console.log(cityName);
         })
         .catch(e => console.log("Oops, error ::: " + e))
 }
@@ -148,12 +127,6 @@ let loadCity = (latitude, longitude, currentData) => {
         longitude = crd.longitude
 
         loadCity(latitude, longitude, currentData);
-
-        /*
-            console.log('Your current position is:');
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-        */
     };
 
     let error = err => {
