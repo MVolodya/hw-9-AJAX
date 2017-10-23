@@ -2,9 +2,12 @@ const key = "91a361375a95b077366d8085860f86b0";
 const baseUrlDarksky = 'https://api.darksky.net/forecast/';
 const baseUrlMaps = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 
+let latitude = null;
+let longitude = null;
+
 let defLang = "uk"
 
-let currentData = moment().format('LL');
+let currentData = moment().format('X') // get the unix timestamp format
 
 
 /*
@@ -15,44 +18,93 @@ let currentData = moment().format('LL');
 const cors_api_host = "https://cors-anywhere.herokuapp.com/";
 
 
+
+let button = () => {
+    let $beforeDay = document.querySelector('#beforeDay');
+    $beforeDay.addEventListener('click', function() {
+        currentData = moment.unix(currentData).subtract(1, 'days').format('X');
+        loadCity(latitude, longitude, currentData);
+    });
+
+    let $nextDay = document.querySelector('#nextDay');
+    $nextDay.addEventListener('click', function() {
+        currentData = moment.unix(currentData).add(1, 'days').format('X');
+        loadCity(latitude, longitude, currentData);
+    });
+}
+
+
+
 let renderDOM = (summary, temperature, windSpeed, humidity, icon, cityName) => {
 
+
+    let $renderDOM    = document.querySelector('.renderDOM');
     let skycons = new Skycons({"color": "balck"});
-    icon = icon.toUpperCase();
+    icon = icon.toUpperCase().replace(/-/g, "_");;
 
-    skycons.add("icon1", Skycons[icon]);
-    skycons.play();
-
-    let $cardTitle    = document.querySelector('.card-title');
+/*
+    /*let $cardTitle    = document.querySelector('.card-title');
     let $cardSubtitle = document.querySelector('.card-subtitle');
     let $temperature  = document.querySelector('#temperature');
     let $summary      = document.querySelector('#summary');
     let $windSpeed    = document.querySelector('#windSpeed');
     let $humidity     = document.querySelector('#humidity');
 
-    cityName    = document.createTextNode(cityName);
-    currentData = document.createTextNode(currentData);
-    temperature = document.createTextNode(parseInt(temperature) + '\u2103');
-    summary     = document.createTextNode(summary);
-    windSpeed   = document.createTextNode(`Вітер: ${windSpeed}м/c`);
-    humidity    = document.createTextNode(`Вологість: ${humidity*100}%`);
+    let setCityName    = document.createTextNode(cityName);
+    let setCurrentData = document.createTextNode((moment.unix(currentData).format("LL")));
+    let setTemperature = document.createTextNode(parseInt(temperature) + '\u2103');
+    let setSummary     = document.createTextNode(summary);
+    let setWindSpeed   = document.createTextNode(`Вітер: ${windSpeed}м/c`);
+    let setHumidity    = document.createTextNode(`Вологість: ${humidity*100}%`);
 
-    $cardTitle.appendChild(cityName);
-    $cardSubtitle.appendChild(currentData);
-    $temperature.appendChild(temperature);
-    $summary.appendChild(summary);
-    $windSpeed.appendChild(windSpeed);
-    $humidity.appendChild(humidity);
+    $cardTitle.appendChild(setCityName);
+    $cardSubtitle.appendChild(setCurrentData);
+    $temperature.appendChild(setTemperature);
+    $summary.appendChild(setSummary);
+    $windSpeed.appendChild(setWindSpeed);
+    $humidity.appendChild(setHumidity);*/
+
+
+    let text =
+    `
+        <h4 class="card-title">${cityName}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">${moment.unix(currentData).format("LL")}</h6>
+        <div class="card-text">
+            <div class="details">
+                <h2 id="temperature">${parseInt(temperature) + '\u2103'}</h2>
+                <div class="main-info">
+                    <canvas id="icon1" width="75" height="75"></canvas>
+                    <div id="summary">${summary}</div>
+                </div>
+            </div>
+            <div class="other-info">
+                <div id="windSpeed">Вітер: ${windSpeed}м/c</div>
+                <div id="humidity">Вологість: ${humidity*100}%</div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div id="beforeDay" class="button">Назад</div>
+            <div id="nextDay" class="button">Вперед</div>
+        </div>
+    `;
+
+    $renderDOM.innerHTML = text;
+
+    skycons.add("icon1", Skycons[icon]);
+    skycons.play();
+
+    button();
 }
 
 
-let loadData = (latitude, longitude, cityName) => {
+let loadData = (latitude, longitude, currentData, cityName) => {
 
-    const url = `${cors_api_host}${baseUrlDarksky}${key}/${latitude},${longitude}?lang=${defLang}&units=auto`;
+    const url = `${cors_api_host}${baseUrlDarksky}${key}/${latitude},${longitude},${currentData}?lang=${defLang}&units=auto`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
+
             const summary     = data.currently.summary;
             const temperature = data.currently.temperature
             const windSpeed   = data.currently.windSpeed;
@@ -67,21 +119,19 @@ let loadData = (latitude, longitude, cityName) => {
 
 }
 
-let loadCity = (latitude, longitude) => {
+let loadCity = (latitude, longitude, currentData) => {
 
-    const url = `${baseUrlMaps}${latitude},${longitude}&sensor=true`
+    const url = `${baseUrlMaps}${latitude},${longitude}&sensor=true&language=uk`
 
     fetch(url)
         .then(response => response.json())
         .then(city => {
             const cityName = city.results[1].address_components[2].short_name;
-            loadData(latitude, longitude, cityName)
+            loadData(latitude, longitude, currentData, cityName)
             //console.log(cityName);
         })
         .catch(e => console.log("Oops, error ::: " + e))
 }
-
-
 
 (() => {
 
@@ -94,7 +144,10 @@ let loadCity = (latitude, longitude) => {
     let success = pos => {
         let crd = pos.coords;
 
-        loadCity(crd.latitude, crd.longitude);
+        latitude  = crd.latitude
+        longitude = crd.longitude
+
+        loadCity(latitude, longitude, currentData);
 
         /*
             console.log('Your current position is:');
@@ -108,24 +161,5 @@ let loadCity = (latitude, longitude) => {
     };
 
     navigator.geolocation.getCurrentPosition(success, error, options);
+
 })();
-
-/*
-
-let $showLocationBytton = document.querySelector('#showLocation');
-
-$showLocationBytton.addEventListener('click', function() {
-    userLocation();
-});
-*/
-    /*
-    (function() {
-        let xhr = new XMLHttpRequest();
-
-        xhr.open('GET', newUrl, true);
-        xhr.onload = function () {
-            var data = JSON.parse(xhr.responseText);
-            console.log(data);
-        };
-        xhr.send();
-})();*/

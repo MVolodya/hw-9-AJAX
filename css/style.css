@@ -17,6 +17,10 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
+.button {
+    cursor: pointer;
+}
+
 
 .details {
     display: flex;
@@ -36,7 +40,7 @@ body {
 }
 
 #icon1,
-#out {
+#summary {
     margin: auto;
 }
 
