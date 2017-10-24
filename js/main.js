@@ -26,6 +26,7 @@ let nextDay = () => {
     if (moment.unix(currentData).format("LL") == moment().format("LL")) {
         $nextDay.setAttribute("disabled", "");
         $btnPrimary.style.cursor = "default";
+        $btnPrimary.style.background = "#3f9cff";
     }
 
     $nextDay.addEventListener('click', function() {
