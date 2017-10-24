@@ -118,7 +118,10 @@ let loadData = (latitude, longitude, currentData, cityName) => {
 
             endLoaderAnim();
         })
-        .catch(e => console.log("Oops, error ::: " + e))
+        .catch(e => {
+            setTimeout(loadData, 1000);
+            console.log("Oops, error ::: " + e)
+        })
 
 }
 
@@ -136,7 +139,10 @@ let loadCity = (latitude, longitude, currentData) => {
 
             loadData(latitude, longitude, currentData, cityName)
         })
-        .catch(e => console.log("Oops, error ::: " + e))
+        .catch(e => {
+            setTimeout(loadCity, 1000);
+            console.log("Oops, error ::: " + e)
+        })
 }
 
 (() => {
