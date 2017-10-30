@@ -19,7 +19,7 @@ Thank you! <br />
 
 ---
 
-[View result in GitHub Pages](https://mvolodya.github.io/weather/hw-9-AJAX/)
+[View result in GitHub Pages](https://mvolodya.github.io/hw-9-AJAX/weather)
 
 
 ## Reddit
