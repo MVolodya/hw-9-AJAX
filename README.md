@@ -1,14 +1,12 @@
-# HW 9 | Weather - AJAX
+# HW 9 | AJAX
+
+## Weather
 
 It's my first work with ES6. <br />
 If you know ES6 and you can review my code, please tell me my problems! <br />
 Thank you! <br />
 
----
-
-[View result in GitHub Pages](https://mvolodya.github.io/hw-9-AJAX/)
-
-## Task
+### Task
 
 - using darksky.net
     - `https://api.darksky.net/forecast/[key]/[latitude],[longitude],[time]`
@@ -17,4 +15,11 @@ Thank you! <br />
     - create two buttons `before` and `next day` when you pressed create new AJAX request and return the weather for this date
     - default page return today's weather and button next day disabled!
     - using Bootstrap
-    
+
+
+---
+
+[View result in GitHub Pages](https://mvolodya.github.io/weather/hw-9-AJAX/)
+
+
+## Reddit
