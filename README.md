@@ -25,8 +25,8 @@ Thank you! <br />
 ## Reddit
 
 ### Task
-- http://pastebin.com/1CRuNygJ
-- usind code below, implement the getImages method
+- using code below, implement the getImages method
+- [Code here](http://pastebin.com/1CRuNygJ)
 
 ---
 
