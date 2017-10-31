@@ -23,3 +23,11 @@ Thank you! <br />
 
 
 ## Reddit
+
+### Task
+- http://pastebin.com/1CRuNygJ
+- usind code below, implement the getImages method
+
+---
+
+[View result in GitHub Pages](https://mvolodya.github.io/hw-9-AJAX/reddit)
