@@ -8,13 +8,13 @@ Thank you! <br />
 
 ### Task
 
-- using darksky.net
-    - `https://api.darksky.net/forecast/[key]/[latitude],[longitude],[time]`
-    - find your location
-    - create HTML document with location title
-    - create two buttons `before` and `next day` when you pressed create new AJAX request and return the weather for this date
-    - default page return today's weather and button next day disabled!
-    - using Bootstrap
+- using [darksky.net](https://darksky.net/)
+- `https://api.darksky.net/forecast/[key]/[latitude],[longitude],[time]`
+- find your location
+- create HTML document with location title
+- create two buttons `before` and `next day` when you pressed create new AJAX request and return the weather for this date
+- default page return today's weather and button next day disabled!
+- using Bootstrap
 
 
 ---

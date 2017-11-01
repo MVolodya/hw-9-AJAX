@@ -6,10 +6,17 @@
         <link rel="icon" href="img/favicon.ico" type="image/x-icon" sizes="16x16"/>
     </head>
     <body>
-        <div id="images">
-            Loading ..
+        <div class="search-box">
+            <div class="search-elements">
+                <input type="text" name="limit" value="100">
+                <input type="text" name="keyword" value="cats">
+                <div class="button">Get images</div>
+            </div>
         </div>
-        <button onclick="getImages()">Get images</button>
+        <div class="spinner-block">
+            <div class="spinner spinner-3"></div>
+        </div>
+        <div id="images"></div>
     </body>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>

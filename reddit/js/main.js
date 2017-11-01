@@ -1,8 +1,12 @@
+var spinner = document.querySelector(".spinner-block");
+
 var get = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
 
     xhr.onreadystatechange = function () {
+        spinner.style.visibility = "hidden";
+
         if (xhr.readyState != xhr.DONE) return;
 
         var status = xhr.status;
@@ -25,7 +29,8 @@ var appendImage = function (url) {
     imgEl.onerror = function () {
     // when image loading failed
     // @todo hide image
-    alert(1);
+        console.log('Error ::: image loading failed');
+        this.style.display = "none";
     }
 
     document.getElementById('images').appendChild(imgEl);
@@ -41,9 +46,10 @@ var appendImage = function (url) {
 
 // "S"OLID, S -> Single Responsibility
 var getImages = function (params) {
+    spinner.style.visibility = "visible";
 
     // var url = 'https://www.reddit.com/r/pics.json';
-    var url = 'https://www.reddit.com/r/pics/search.json?q=cats';
+    var url = 'https://www.reddit.com/r/pics/search.json?q=pics';
     url += '&limit=5';
     // @todo: use here params.limit
     // @todo: category == "pics"
@@ -61,3 +67,6 @@ var getImages = function (params) {
 
     });
 }
+
+var button = document.querySelector(".button");
+button.addEventListener("click", getImages);
