@@ -1,11 +1,14 @@
-var spinner = document.querySelector(".spinner-block");
+var $spinner = document.querySelector(".spinner-block");
+var $images  = document.querySelector("#images");
+
 
 var get = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
 
     xhr.onreadystatechange = function () {
-        spinner.style.visibility = "hidden";
+        $spinner.style.visibility = "hidden";
+        $images.style.opacity = 1;
 
         if (xhr.readyState != xhr.DONE) return;
 
@@ -21,38 +24,34 @@ var get = function (url, callback) {
 
 var appendImage = function (url) {
     var imgEl = document.createElement('img');
-    // <img />
 
+    // <img />
     imgEl.src = url;
     // <img src="{url}" />
 
     imgEl.onerror = function () {
     // when image loading failed
-    // @todo hide image
+    // hide image
         console.log('Error ::: image loading failed');
         this.style.display = "none";
     }
-
     document.getElementById('images').appendChild(imgEl);
 }
 
-// getImages({limit: 5})
-// getImages({})
-// getImages() -- by default should take 100 images
-
-// getImages({limit: 5, category: "cats"})
-// getImages({category: "cats"})
-// getImages()
-
-// "S"OLID, S -> Single Responsibility
 var getImages = function (params) {
-    spinner.style.visibility = "visible";
+    $spinner.style.visibility = "visible";
+    $images.style.opacity = 0.3;
+
+    var limit    = params.limit;
+    var category = params.category;
+
+    if(limit == undefined)    { limit = 100; }
+    if(category == undefined) { category = 'cats'; }
 
     // var url = 'https://www.reddit.com/r/pics.json';
-    var url = 'https://www.reddit.com/r/pics/search.json?q=pics';
-    url += '&limit=5';
-    // @todo: use here params.limit
-    // @todo: category == "pics"
+    var url = 'https://www.reddit.com/r/pics/search.json?q=';
+    url += category;
+    url += '&limit=' + limit;
 
     get(url, function (status, headers, body) {
         var response = JSON.parse(body);
@@ -67,6 +66,18 @@ var getImages = function (params) {
 
     });
 }
+var buttonClick = function () {
+
+    var $limit       = document.querySelector("#limit").value;
+    var $keyword     = document.querySelector("#keyword").value;
+
+    var obj = {
+        limit: $limit,
+        category: $keyword
+    };
+
+    getImages(obj);
+}
 
 var button = document.querySelector(".button");
-button.addEventListener("click", getImages);
+button.addEventListener("click", buttonClick);

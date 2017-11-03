@@ -1,6 +1,7 @@
 body {
     background: #fbfbfb;
     font-family: "Roboto", sans-serif;
+    margin: 0;
 }
 
 #images img {
@@ -15,6 +16,7 @@ body {
 }
 
 .spinner-block {
+    width: 100%;
     position: absolute;
     visibility: hidden;
 }
@@ -23,6 +25,7 @@ body {
     width: 125px;
     height: 125px;
     z-index: 1;
+    margin: 0 auto;
 }
 
 .spinner:before, .spinner:after {
@@ -98,4 +101,26 @@ input[type="text"] {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#images {
+    margin: 20px;
+}
+
+.information {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 70px;
+}
+
+#main-info, #bad-info{
+    width: 450px;
+    padding: 20px;
+    margin: 5px;
+    text-align: center;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    visibility: hidden;
 }
