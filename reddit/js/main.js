@@ -1,7 +1,6 @@
 var $spinner = document.querySelector(".spinner-block");
 var $images  = document.querySelector("#images");
 
-
 var get = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
@@ -68,15 +67,20 @@ var getImages = function (params) {
 }
 var buttonClick = function () {
 
-    var $limit       = document.querySelector("#limit").value;
-    var $keyword     = document.querySelector("#keyword").value;
+    var $limit   = document.querySelector("#limit").value;
+    var $keyword = document.querySelector("#keyword").value;
 
     var obj = {
         limit: $limit,
         category: $keyword
     };
 
-    getImages(obj);
+    if(isNaN($limit)) {
+        alert("Error, try to input numbers");
+    } else {
+        getImages(obj);
+    }
+
 }
 
 var button = document.querySelector(".button");

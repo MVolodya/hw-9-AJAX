@@ -54,7 +54,7 @@ body {
 .spinner.spinner-3:before {
     width: 117px;
     height: 117px;
-    border-color: #212121;
+    border-color: #2e5fea;
     top: 0px;
     left: 0px;
     animation: scale-2 1s linear 0s infinite;
@@ -62,7 +62,7 @@ body {
 .spinner.spinner-3:after {
     width: 117px;
     height: 117px;
-    border-color: #212121;
+    border-color: #2e5fea;
     top: 0;
     left: 0;
     opacity: 0;
@@ -92,6 +92,10 @@ input[type="text"] {
     outline: none;
     border: none;
     border-bottom: 1px solid #bebebe;
+}
+
+input[type="text"]:focus {
+    border-bottom: 1px solid #2e5fea;
 }
 
 .button {
